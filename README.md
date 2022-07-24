@@ -48,7 +48,7 @@ The following code allows us to do the same:
 
 ```go
 // parse HTML doc
-template := "<html><head><title><get var='title' /></title></head></html>"
+template := "<html><head><title><get var='pageTitle' /></title></head></html>"
 
 // create the model
 model := snowmark.NewModel()
