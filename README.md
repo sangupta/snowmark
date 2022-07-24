@@ -14,7 +14,7 @@ except using custom tags.
 * Merge HTML templates with custom model
 * Bring your own custom tags
 * Attribute expressions
-*  Standard tag library includes:
+* Standard tag library includes:
   - Get variable
   - Set variable (global or in block)
   - If-then
