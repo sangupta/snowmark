@@ -51,6 +51,13 @@ func (model *Model) Clear() {
 }
 
 //
+// Return the map associated with this model.
+//
+func (model *Model) GetMap() map[string]interface{} {
+	return model._map
+}
+
+//
 // Get the value from the model.
 //
 func (model *Model) Get(key string) (interface{}, bool) {

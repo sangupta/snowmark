@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/maja42/goval"
 	"github.com/sangupta/lhtml"
 )
 
@@ -76,14 +77,35 @@ func (evaluator *Evaluator) EvaluateExpression(expr string, model *Model) (inter
 		return "", nil
 	}
 
-	// check if this expression has dot notation
-	containsDot := strings.ContainsRune(expr, '.')
-	if !containsDot {
-		value, _ := model.Get(expr)
-		return value, nil
-	}
+	eval := goval.NewEvaluator()
+	return eval.Evaluate(expr, model._map, nil)
+	// if err != nil {
+	// 	return err
+	// }
 
-	return "", errors.New("not implemented")
+	// return result, nil
+
+	// expression, err := govaluate.NewEvaluableExpression(expr)
+	// if err != nil {
+	// 	return "", err
+	// }
+
+	// result, err := expression.Evaluate(model._map)
+	// if err != nil {
+	// 	return "", err
+	// }
+
+	// // check if this expression has dot notation
+	// containsDot := strings.ContainsRune(expr, '.')
+	// if containsDot {
+	// 	fmt.Println("dot")
+	// }
+	// 	value, _ := model.Get(expr)
+	// 	return value, nil
+	// }
+
+	// return "", errors.New("not implemented")
+	// return result, nil
 }
 
 //
@@ -96,7 +118,7 @@ func (evaluator *Evaluator) EvaluateExpressionAsString(expr string, model *Model
 		return "", err
 	}
 
-	return fmt.Sprintf("%v", value), nil
+	return toString(value), nil
 }
 
 //
@@ -104,7 +126,7 @@ func (evaluator *Evaluator) EvaluateExpressionAsString(expr string, model *Model
 // attribute with same name is present, and if yes, if will evalue the expression
 // and return the value.
 //
-func (evaluator *Evaluator) GetAttributeValue(node *lhtml.HtmlNode, attributeName string, model *Model) (string, error) {
+func (evaluator *Evaluator) GetAttributeValue(node *lhtml.HtmlNode, attributeName string, model *Model) (interface{}, error) {
 	if attributeName == "" {
 		return "", errors.New("Attribute name is required")
 	}
@@ -120,7 +142,16 @@ func (evaluator *Evaluator) GetAttributeValue(node *lhtml.HtmlNode, attributeNam
 	}
 
 	// evaluate expression
-	return evaluator.EvaluateExpressionAsString(attr.Value, model)
+	return evaluator.EvaluateExpression(attr.Value, model)
+}
+
+func (evaluator *Evaluator) GetAttributeValueAsString(node *lhtml.HtmlNode, attributeName string, model *Model) (string, error) {
+	value, err := evaluator.GetAttributeValue(node, attributeName, model)
+	if err != nil {
+		return "", err
+	}
+
+	return toString(value), nil
 }
 
 func (evaluator *Evaluator) processNormalNode(node *lhtml.HtmlNode, model *Model) error {
@@ -189,4 +220,12 @@ func (evaluator *Evaluator) processNormalNode(node *lhtml.HtmlNode, model *Model
 
 	builder.WriteString("\n")
 	return nil
+}
+
+func toString(value interface{}) string {
+	if value == nil {
+		return ""
+	}
+
+	return fmt.Sprintf("%v", value)
 }
