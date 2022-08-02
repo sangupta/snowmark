@@ -4,6 +4,8 @@
 [![Code Coverage](https://codecov.io/gh/sangupta/snowmark/branch/main/graphs/badge.svg?branch=main)](https://codecov.io/gh/sangupta/snowmark)
 [![go.mod version](https://img.shields.io/github/go-mod/go-version/sangupta/snowmark.svg)](https://github.com/sangupta/snowmark)
 ![GitHub](https://img.shields.io/github/license/sangupta/snowmark)
+[![Go Report Card](https://goreportcard.com/badge/github.com/sangupta/snowmark)](https://goreportcard.com/report/github.com/sangupta/snowmark)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/sangupta/snowmark)](https://pkg.go.dev/github.com/sangupta/snowmark)
 
 `snowmark` is a library for HTML templates that uses HTML
 custom tags and custom attributes instead of confusing markup

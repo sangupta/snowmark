@@ -58,6 +58,10 @@ func (evaluator *Evaluator) WriteByte(b byte) error {
 	return evaluator.builder.WriteByte(b)
 }
 
+func (evaluator *Evaluator) GetEvaluation() string {
+	return evaluator.builder.String()
+}
+
 //
 // Evaluate the given node against the model.
 //
@@ -219,6 +223,5 @@ func (evaluator *Evaluator) processNormalNode(node *lhtml.HtmlNode, model *Model
 		builder.WriteString(">")
 	}
 
-	builder.WriteString("\n")
 	return nil
 }
