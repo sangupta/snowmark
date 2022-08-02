@@ -2,14 +2,10 @@ module github.com/sangupta/snowmark
 
 go 1.18
 
-replace github.com/sangupta/lhtml => /Users/sangupta/git/sangupta/lhtml
-
-replace github.com/sangupta/berry => /Users/sangupta/git/sangupta/berry
-
 require (
 	github.com/maja42/goval v1.2.1
-	github.com/sangupta/berry v0.0.0
-	github.com/sangupta/lhtml v0.2.0
+	github.com/sangupta/berry v0.1.0
+	github.com/sangupta/lhtml v0.2.1
 	github.com/stretchr/testify v1.8.0
 )
 
