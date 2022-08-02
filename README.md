@@ -1,5 +1,10 @@
 # snowmark - HTML templates for Go.
 
+[![Build Status](https://github.com/sangupta/snowmark/actions/workflows/unittest.yml/badge.svg?branch=main)](https://github.com/sangupta/snowmark/actions)
+[![Code Coverage](https://codecov.io/gh/sangupta/snowmark/branch/main/graphs/badge.svg?branch=main)](https://codecov.io/gh/sangupta/snowmark)
+[![go.mod version](https://img.shields.io/github/go-mod/go-version/sangupta/snowmark.svg)](https://github.com/sangupta/snowmark)
+![GitHub](https://img.shields.io/github/license/sangupta/snowmark)
+
 `snowmark` is a library for HTML templates that uses HTML
 custom tags and custom attributes instead of confusing markup
 intertwined within HTML. It is very similar to Java Server
@@ -8,6 +13,13 @@ some ways `snowmark` is also similar to `Velocity` templates
 except using custom tags.
 
 # Table of contents
+
+- [Features](#features)
+- [API](#api)
+- [Usage Example](#usage-example)
+- [Hacking](#hacking)
+- [Changelog](#changelog)
+- [License](#license)
 
 # Features
 
