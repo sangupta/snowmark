@@ -13,10 +13,10 @@ package snowmark
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/maja42/goval"
+	"github.com/sangupta/berry"
 	"github.com/sangupta/lhtml"
 )
 
@@ -28,6 +28,34 @@ const PREFIX = "expr:"
 type Evaluator struct {
 	builder   *strings.Builder
 	processor *HtmlPageProcessor
+}
+
+//
+// Write given string to internal string builder.
+//
+func (evaluator *Evaluator) WriteString(s string) (int, error) {
+	return evaluator.builder.WriteString(s)
+}
+
+//
+// Write byte array to internal string builder.
+//
+func (evaluator *Evaluator) Write(b []byte) (int, error) {
+	return evaluator.builder.Write(b)
+}
+
+//
+// Write rune to internal string builder.
+//
+func (evaluator *Evaluator) WriteRune(r rune) (int, error) {
+	return evaluator.builder.WriteRune(r)
+}
+
+//
+// Write single byte to internal string builder.
+//
+func (evaluator *Evaluator) WriteByte(b byte) error {
+	return evaluator.builder.WriteByte(b)
 }
 
 //
@@ -79,33 +107,6 @@ func (evaluator *Evaluator) EvaluateExpression(expr string, model *Model) (inter
 
 	eval := goval.NewEvaluator()
 	return eval.Evaluate(expr, model._map, nil)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// return result, nil
-
-	// expression, err := govaluate.NewEvaluableExpression(expr)
-	// if err != nil {
-	// 	return "", err
-	// }
-
-	// result, err := expression.Evaluate(model._map)
-	// if err != nil {
-	// 	return "", err
-	// }
-
-	// // check if this expression has dot notation
-	// containsDot := strings.ContainsRune(expr, '.')
-	// if containsDot {
-	// 	fmt.Println("dot")
-	// }
-	// 	value, _ := model.Get(expr)
-	// 	return value, nil
-	// }
-
-	// return "", errors.New("not implemented")
-	// return result, nil
 }
 
 //
@@ -118,7 +119,7 @@ func (evaluator *Evaluator) EvaluateExpressionAsString(expr string, model *Model
 		return "", err
 	}
 
-	return toString(value), nil
+	return berry.ConvertToString(value), nil
 }
 
 //
@@ -151,7 +152,7 @@ func (evaluator *Evaluator) GetAttributeValueAsString(node *lhtml.HtmlNode, attr
 		return "", err
 	}
 
-	return toString(value), nil
+	return berry.ConvertToString(value), nil
 }
 
 func (evaluator *Evaluator) processNormalNode(node *lhtml.HtmlNode, model *Model) error {
@@ -220,12 +221,4 @@ func (evaluator *Evaluator) processNormalNode(node *lhtml.HtmlNode, model *Model
 
 	builder.WriteString("\n")
 	return nil
-}
-
-func toString(value interface{}) string {
-	if value == nil {
-		return ""
-	}
-
-	return fmt.Sprintf("%v", value)
 }

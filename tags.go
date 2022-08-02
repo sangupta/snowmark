@@ -15,6 +15,7 @@ import (
 	"errors"
 	"reflect"
 
+	"github.com/sangupta/berry"
 	"github.com/sangupta/lhtml"
 )
 
@@ -111,7 +112,7 @@ func IfElseTag(node *lhtml.HtmlNode, model *Model, evaluator *Evaluator) error {
 		return err
 	}
 
-	conditionBool := ConvertToBool(conditionValue)
+	conditionBool, err := berry.ConvertToBool(conditionValue)
 	if err != nil {
 		return err
 	}
