@@ -136,6 +136,10 @@ func (evaluator *Evaluator) GetAttributeValue(node *lhtml.HtmlNode, attributeNam
 		return "", errors.New("Attribute name is required")
 	}
 
+	if node == nil {
+		return "", errors.New("Node is required to read attribute from")
+	}
+
 	attr := node.GetAttribute(attributeName)
 	if attr != nil {
 		return attr.Value, nil
